@@ -21,7 +21,6 @@
 - Chosen Database Path:
   - Engine: Amazon DocumentDB
   - Paradigm: Document Database
-- W2 Evidence Link:
 - GitHub Repository Link:
 
 ---
@@ -53,8 +52,8 @@
 - How W3 Improved It:
     - Enforced Block ALL Public Access and removed any "Principal": "*" from bucket policies → ensuring S3 remains private
     - Implemented CloudFront with Origin Access Control (OAC) → only CloudFront can access S3
-    Added S3 VPC Endpoint → eliminates NAT usage for S3 access, reducing cost and improving security
-    Refined IAM policies using least privilege → application role only allows PutObject and GetObject
+    - Added S3 VPC Endpoint → eliminates NAT usage for S3 access, reducing cost and improving security
+    - Refined IAM policies using least privilege → application role only allows PutObject and GetObject
     - Enforced HTTPS-only access with HTTP → HTTPS redirection via CloudFront → securing data in transit
     - Applied Lifecycle rules → automatic storage optimization and cost reduction
     - Designed Multi-AZ architecture → improved system availability and fault tolerance
@@ -109,13 +108,13 @@
 - Index / PK / GSI: Index on { status: 1 }
 - Why Efficient: Aggregation is executed directly in the database, reducing data transfer to the backend. Indexing the status field improves grouping performance.
 
-## Self-hosted Only (If Applicable)
+## Self-hosted Only
 
 - Backup Plan: Not applicable (managed service). If self-hosted, would require scheduled backups and snapshot automation.
 - HA Plan: Not applicable (managed service). If self-hosted, would require replica set configuration and failover handling.
 - Trade-off Reasoning: Using a managed service eliminates operational overhead such as patching, backup management, and replica maintenance, at the cost of higher pricing.
 
-## High Cost Engine Only (If Applicable)
+## High Cost Engine Only
 
 - Rough Monthly Cost: Approximately $250 – $400/month for a small cluster (1 writer + 1 replica), depending on instance size, storage, and I/O.
 - Why Chosen: Chosen for its managed nature, high availability (Multi-AZ), automatic backups, scalability, and compatibility with MongoDB workloads, which significantly reduces operational complexity and production risk.
@@ -135,32 +134,30 @@
 
 ## 3.1 Database Overview
 
-- Engine:
-- Region:
-- Private Subnet:
-- Public Access Disabled:
-- Encryption Enabled:
-- HA Plan:
+- Engine: Amazon DocumentDB (MongoDB-compatible)
+- Region: us-west-2
+- Private Subnet: Deployed in private subnets across Multi-AZ (2a, 2b)
+- Public Access Disabled: Yes – database is not publicly accessible
+- Encryption Enabled: Yes – encryption at rest enabled using AWS-managed or KMS key
+- HA Plan: Multi-AZ deployment with automatic failover and replication (primary + replica instances)
 
 ### Screenshot
-
-- Insert Screenshot Here
+![alt text](image-9.png)
 
 ### Notes
 
-- Why configured this way:
+- Why configured this way: The database is deployed in private subnets to ensure it is completely isolated from the public internet. Only the backend application (EC2) can access it through Security Groups. Multi-AZ ensures high availability, while encryption protects data at rest. This setup follows AWS best practices for security and reliability.
 
 ---
 
 ## 3.2 Security Group Rules
 
-- DB SG Name:
-- Inbound Source:
-- Port:
+- DB SG Name: group2-security-VPC
+- Inbound Source: EC2 Backend Security Group (group2-secu-new)
+- Port: 27017 (MongoDB / DocumentDB default port)
 
 ### Screenshot
-
-- Insert Screenshot Here
+![alt text](image-10.png)
 
 ---
 
@@ -168,41 +165,79 @@
 
 ### Insert Data
 
-- Command / Method:
+- Command / Method: 
+    db.cars.insertOne({
+      brand: "Audi",
+      car_model: "Q8 e-tron",
+      price: 75000,
+      body_style: "SUV",
+      engine: "Dual electric motor"
+    })
 - Result:
+    {
+      acknowledged: true,
+      insertedId: ObjectId('69ea45c606b0744ba144ba89')
+    }
 
 ### Read Data
 
-- Command / Method:
-- Result:
+- Command / Method: db.cars.countDocuments()
+- Result: 19
 
 ### Screenshot
-
-- Insert Screenshot Here
+![alt text](image-11.png)
+![alt text](<Screenshot From 2026-04-23 23-18-08.png>)
 
 ---
 
 # 4. Working Query Evidence
 
-## If DocumentDB / MongoDB
-
 ### Query 1 – Aggregation Pipeline
 
-- Pipeline:
+- Pipeline: 
+      db.cars.aggregate([
+        {
+          $group: {
+            _id: "$brand",
+            totalCars: {$sum:1} 
+          }
+        }
+      ])
 - Result:
+      { _id: 'Audi', totalCars: 4 },
+      { _id: 'Porsche', totalCars: 1 },
+      { _id: 'Mercedes', totalCars: 4 },
+      { _id: 'Rolls-Royce', totalCars: 1 },
+      { _id: 'Toyota', totalCars: 5 },
+      { _id: 'Nissan', totalCars: 3 },
+      { _id: 'BMW', totalCars: 1 }
 
 ### Screenshot
-
-- Insert Screenshot Here
+![alt text](image-12.png)
 
 ### Query 2 – Indexed Lookup
 
 - Index:
+    // Tạo index cho trường car_model
+    db.cars.createIndex({ car_model: 1 }, { name: "idx_car_model_search" })
+
+    // Tìm kiếm tài liệu theo car_model
+    db.cars.find({ car_model: "Q8 e-tron" })
 - Result:
+idx_car_model_search
+    [
+      {
+        _id: ObjectId('69ea45c606b0744ba144ba89'),
+        brand: 'Audi',
+        car_model: 'Q8 e-tron',
+        price: 75000,
+        body_style: 'SUV',
+        engine: 'Dual electric motor'
+      }
+    ]
 
 ### Screenshot
-
-- Insert Screenshot Here
+![alt text](<Screenshot From 2026-04-23 23-18-39.png>)
 
 ---
 
@@ -216,8 +251,8 @@
 - Sync Status: Complete
 
 ### Screenshot
-![alt text](image.png)
-![alt text](image-1.png)
+![knowledge base](https://github.com/DangThao195/w3/blob/c9aa6124cd2d484ad768dfbb9f35f1ff2f2e6f27/image.png)
+![sync history](https://github.com/DangThao195/w3/blob/c9aa6124cd2d484ad768dfbb9f35f1ff2f2e6f27/image-1.png)
 ---
 
 ## 5.2 Embedding + Vector Store
@@ -226,7 +261,7 @@
 - Vector Store: Amazon OpenSearch Serverless
 
 ### Screenshot
-![alt text](image-2.png)
+![embedding model](https://github.com/DangThao195/w3/blob/c9aa6124cd2d484ad768dfbb9f35f1ff2f2e6f27/image-2.png)
 
 ---
 
@@ -234,47 +269,42 @@
 
 - Method: AWS Lambda (integrated with API Gateway, using Amazon Bedrock Agent Runtime and Bedrock Agent)
 - Query: 
-    - Chatbot use case:
-    Lambda receives a POST request from API Gateway with JSON payload:
 
+    - Chatbot use case:
+      Lambda receives a POST request from API Gateway with JSON payload:
+            {
+              "question": "list cars in your shop?"
+            }
+      The function extracts the question field and sends it to Bedrock using retrieve_and_generate() with:
+            knowledgeBaseId = 8WJMIZAGIK
+            modelArn = meta.llama3-70b-instruct-v1:0
+
+    - Knowledge sync use case:
+      Lambda reads environment variables:
+            KNOWLEDGE_BASE_ID
+            DATA_SOURCE_ID
+      Then calls:
+            start_ingestion_job()
+      to trigger document synchronization into the Knowledge Base.
+
+- Response:
+
+    - Chatbot use case:
+      Returns a generated answer from Bedrock in JSON format:
           {
-            "question": "What is Amazon S3?"
+            "answer": "Toyota Camry and Ford Everest are two cars listed in the database."
           }
 
-    The function extracts the question field and sends it to Bedrock using retrieve_and_generate() with:
-
-          knowledgeBaseId = 8WJMIZAGIK
-          modelArn = meta.llama3-70b-instruct-v1:0
-
     - Knowledge sync use case:
-    Lambda reads environment variables:
-
-          KNOWLEDGE_BASE_ID
-          DATA_SOURCE_ID
-
-    Then calls:
-
-          start_ingestion_job()
-
-    to trigger document synchronization into the Knowledge Base.
-- Response:
-    - Chatbot use case:
-    Returns a generated answer from Bedrock in JSON format:
-        {
-          "answer": "No information available in the provided knowledge base."
-        }
-
-    - Knowledge sync use case:
-    Returns ingestion job status:
-        {
-          "job_id": "xxxx",
-          "status": "STARTED"
-        }
-    Along with HTTP status 200 OK.
+      Returns ingestion job status:
+          {
+            "job_id": "xxxx",
+            "status": "STARTED"
+          }
+      Along with HTTP status 200 OK.
 
 ### Screenshot
-
-- Insert Screenshot Here
+![alt text](image-16.png)
 
 ---
 
@@ -286,11 +316,11 @@
 - Runtime: Python 3.x (using boto3 SDK)
 - Trigger Type: 
     - API Gateway (HTTP POST request) for Chatbot
-    - Scheduled trigger (e.g., Amazon EventBridge) or manual invocation for Knowledge Base sync
+    - Manual invocation for Knowledge Base sync
 
 ### Screenshot
-![alt text](image-3.png)
-![alt text](image-4.png)
+![q&a](https://github.com/DangThao195/w3/blob/c9aa6124cd2d484ad768dfbb9f35f1ff2f2e6f27/image-3.png)
+![update kb](https://github.com/DangThao195/w3/blob/c9aa6124cd2d484ad768dfbb9f35f1ff2f2e6f27/image-4.png)
 
 ---
 
@@ -310,8 +340,8 @@
     arn:aws:bedrock:us-west-2::foundation-model/meta.llama3-70b-instruct-v1:0
 
 ### Screenshot
-![alt text](image-5.png)
-![alt text](image-6.png)
+![q&a iam](https://github.com/DangThao195/w3/blob/c9aa6124cd2d484ad768dfbb9f35f1ff2f2e6f27/image-5.png)
+![update kb iam](https://github.com/DangThao195/w3/blob/c9aa6124cd2d484ad768dfbb9f35f1ff2f2e6f27/image-6.png)
 
 ---
 
@@ -320,15 +350,18 @@
 - Trigger Event:
     curl -X POST "https://8m2zzb7e5e.execute-api.us-west-2.amazonaws.com/default/Chatbot-Bedrock" \
     -H "Content-Type: application/json" \
-    -d '{"question": "What is Amazon S3?"}'
+    -d '{"question": "list cars in your shop?"}'
 - Output:
     {
-      "answer": "No information about Amazon S3 is available in the provided search results."
+      "answer": "Toyota Camry and Ford Everest are two cars listed in the database."
     }
-- CloudWatch Timestamp:
+- CloudWatch Timestamp: 2026-04-23T16:14:08.899Z
 
 ### Screenshot
-![alt text](image-7.png)
+![alt text](image-13.png)
+![alt text](image-14.png)
+![alt text](image-15.png)
+
 
 ---
 
@@ -369,7 +402,7 @@
       group2-rtb-private3-us-west-2a
 
 ### Screenshot
-![alt text](image-8.png)
+![endpoint](https://github.com/DangThao195/w3/blob/c9aa6124cd2d484ad768dfbb9f35f1ff2f2e6f27/image-8.png)
 
 ---
 
@@ -405,47 +438,5 @@
 ### Screenshot
 
 - Insert Screenshot Here
-
----
-
-# 9. Bonus (Optional)
-
-## Scenario Name:
-
-## Pre-State
-
-- Screenshot:
-
-## Action Taken
-
-- Steps:
-
-## Post-State
-
-- Screenshot:
-
-## Measurement
-
-- Downtime / Duration / Count:
-
-## Reflection
-
-- What learned:
-- What surprised:
-- What improve next time:
-
----
-
-# 10. Final Checklist
-
-- [ ] Database running
-- [ ] Real queries working
-- [ ] Bedrock retrieval working
-- [ ] Lambda trigger working
-- [ ] VPC updated
-- [ ] Gateway endpoint added
-- [ ] Negative test done
-- [ ] All screenshots inserted
-- [ ] Ready for Friday demo
 
 ---
