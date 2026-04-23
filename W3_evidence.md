@@ -21,7 +21,7 @@
 - Chosen Database Path:
   - Engine: Amazon DocumentDB
   - Paradigm: Document Database
-- GitHub Repository Link:
+- GitHub Repository Link: https://github.com/DangThao195/w3
 
 ---
 
@@ -142,7 +142,7 @@
 - HA Plan: Multi-AZ deployment with automatic failover and replication (primary + replica instances)
 
 ### Screenshot
-![alt text](image-9.png)
+![db in4](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-9.png)
 
 ### Notes
 
@@ -157,7 +157,7 @@
 - Port: 27017 (MongoDB / DocumentDB default port)
 
 ### Screenshot
-![alt text](image-10.png)
+![sc in db](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-10.png)
 
 ---
 
@@ -185,8 +185,8 @@
 - Result: 19
 
 ### Screenshot
-![alt text](image-11.png)
-![alt text](<Screenshot From 2026-04-23 23-18-08.png>)
+![read db](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-11.png)
+![write db](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/Screenshot%20From%202026-04-23%2023-18-08.pngv)
 
 ---
 
@@ -213,7 +213,7 @@
       { _id: 'BMW', totalCars: 1 }
 
 ### Screenshot
-![alt text](image-12.png)
+![aggregate](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-12.png)
 
 ### Query 2 – Indexed Lookup
 
@@ -237,7 +237,7 @@ idx_car_model_search
     ]
 
 ### Screenshot
-![alt text](<Screenshot From 2026-04-23 23-18-39.png>)
+![indexed lookup](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/Screenshot%20From%202026-04-23%2023-18-39.png)
 
 ---
 
@@ -304,7 +304,7 @@ idx_car_model_search
       Along with HTTP status 200 OK.
 
 ### Screenshot
-![alt text](image-16.png)
+![q&a](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-16.png)
 
 ---
 
@@ -358,9 +358,9 @@ idx_car_model_search
 - CloudWatch Timestamp: 2026-04-23T16:14:08.899Z
 
 ### Screenshot
-![alt text](image-13.png)
-![alt text](image-14.png)
-![alt text](image-15.png)
+![log events](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-13.png)
+![log stream qa](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-14.png)
+![test qa](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-15.png)
 
 
 ---
@@ -386,10 +386,6 @@ idx_car_model_search
     - Only accessible from App Tier via internal VPC networking
     - Secured using Security Groups and subnet isolation
 
-### Diagram
-
-- Insert Diagram Here
-
 ---
 
 ## 7.2 S3 Gateway Endpoint
@@ -408,11 +404,15 @@ idx_car_model_search
 
 ## 7.3 Security Group Reference
 
-- DB SG Source = App SG:
+- SG Source:
+      - ALB Security Group (group2-alb-sg): Cho phép Inbound Traffic từ Internet (0.0.0.0/0) thông qua port 80 (HTTP) và 443 (HTTPS).
+      - EC2 Backend Security Group (group2-secu-new): Chỉ cho phép Inbound Traffic tại port 5000 với Source là group2-alb-sg. Mở port 22 (SSH) hạn chế cho IP quản trị hoặc Bastion Host.
+      - DocumentDB Security Group (group2-security-VPC): Chỉ cho phép Inbound Traffic tại port 27017 với Source là group2-backend-sg.
 
 ### Screenshot
-
-- Insert Screenshot Here
+![alt text](image-7.png)
+![alt text](image-17.png)
+![alt text](image-18.png)
 
 ---
 
