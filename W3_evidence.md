@@ -198,6 +198,55 @@
 ![read db](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-11.png)
 ![write db](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/Screenshot%20From%202026-04-23%2023-18-08.pngv)
 
+
+## 3.4 Cost Control Automation with AWS Budgets
+
+### Components
+
+- **AWS Budgets**
+  - Budget Name: `Budget_gr2`
+  - Type: Monthly Fixed Budget
+  - Amount: `$50`
+
+- **Amazon SNS**
+  - Topic Name: `Budget-Alert-Topic`
+  - Sends alerts to Email and Lambda
+
+- **AWS Lambda**
+  - Function Name: `EnforceBudgetLimit`
+  - Triggered by SNS when budget threshold is exceeded
+
+- **AWS IAM**
+  - User Group: `Developer`
+  - Deny Policy Name: `OverBudgetDenyPolicy`
+
+### Restricted Actions by Policy
+
+- `ec2:RunInstances`
+- `rds:CreateDBInstance`
+- `ecs:CreateCluster`
+- `ecs:RunTask`
+
+### Alert Rule
+
+- Threshold: `Actual Cost > $0.01` (testing)
+- Notification Target: `Budget-Alert-Topic`
+
+### Why Use This Solution?
+
+- Prevent unexpected AWS overspending
+- Automatically block expensive resource creation
+- Send instant alerts to administrators
+- Reduce manual monitoring effort
+- Improve governance and budget control
+
+### Screenshot
+![alt text](image-28.png)
+![alt text](image-29.png)
+![alt text](image-30.png)
+![alt text](image-31.png)
+![alt text](image-32.png)
+
 ---
 
 # 4. Working Query Evidence
