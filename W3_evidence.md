@@ -192,7 +192,7 @@
 
 # 4. Working Query Evidence
 
-### Query 1 – Aggregation Pipeline
+## Query 1 – Aggregation Pipeline
 
 - Pipeline: 
       db.cars.aggregate([
@@ -212,10 +212,10 @@
       { _id: 'Nissan', totalCars: 3 },
       { _id: 'BMW', totalCars: 1 }
 
-### Screenshot
+## Screenshot
 ![aggregate](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-12.png)
 
-### Query 2 – Indexed Lookup
+## Query 2 – Indexed Lookup
 
 - Index:
     // Tạo index cho trường car_model
@@ -236,7 +236,7 @@ idx_car_model_search
       }
     ]
 
-### Screenshot
+## Screenshot
 ![indexed lookup](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/Screenshot%20From%202026-04-23%2023-18-39.png)
 
 ---
@@ -410,9 +410,9 @@ idx_car_model_search
       - DocumentDB Security Group (group2-security-VPC): Chỉ cho phép Inbound Traffic tại port 27017 với Source là group2-backend-sg.
 
 ### Screenshot
-![alt text](image-7.png)
-![alt text](image-17.png)
-![alt text](image-18.png)
+![ec2 backend](https://github.com/DangThao195/w3/blob/d2a2bec50eb39a9cb081261239fc0134e7da37e5/image-7.png)
+![alb](https://github.com/DangThao195/w3/blob/d2a2bec50eb39a9cb081261239fc0134e7da37e5/image-17.png)
+![db](https://github.com/DangThao195/w3/blob/d2a2bec50eb39a9cb081261239fc0134e7da37e5/image-18.png)
 
 ---
 
@@ -431,12 +431,10 @@ idx_car_model_search
 
 ## Unauthorized Access Attempt
 
-- Test Scenario:
-- Expected Result:
-- Actual Result:
+- Test Scenario: Attempted to connect to the DocumentDB cluster endpoint without proper authorization or required network access permissions using the nc command.
+- Expected Result: The connection should be denied or blocked due to missing authentication credentials or restrictive security group rules.
+- Actual Result: The connection attempt failed with a timeout error (TIMEOUT), indicating that access to the cluster endpoint is not allowed from the current source.
 
 ### Screenshot
-
-- Insert Screenshot Here
-
+![alt text](image-19.png)
 ---
