@@ -60,13 +60,13 @@
     - Verified security by testing direct S3 access → confirmed Access Denied response
 
 ## Screenshot
-![Block public access](image-20.png)
-![Encryption](image-21.png)
-![HTTPS only](image-22.png)
-![Life cycle](image-23.png)
-![IAM s3](image-24.png)
-![OAC](image-25.png)
-![Versioning](image-26.png)
+![Block public access](https://github.com/DangThao195/w3/blob/54104c6ff65b92fe108a82988595cf558d7966e6/image-20.png)
+![Encryption](https://github.com/DangThao195/w3/blob/54104c6ff65b92fe108a82988595cf558d7966e6/image-21.png)
+![HTTPS only](https://github.com/DangThao195/w3/blob/54104c6ff65b92fe108a82988595cf558d7966e6/image-22.png)
+![Life cycle](https://github.com/DangThao195/w3/blob/54104c6ff65b92fe108a82988595cf558d7966e6/image-23.png)
+![IAM s3](https://github.com/DangThao195/w3/blob/54104c6ff65b92fe108a82988595cf558d7966e6/image-24.png)
+![OAC](https://github.com/DangThao195/w3/blob/54104c6ff65b92fe108a82988595cf558d7966e6/image-25.png)
+![Versioning](https://github.com/DangThao195/w3/blob/54104c6ff65b92fe108a82988595cf558d7966e6/image-26.png)
 
 ---
 
@@ -396,7 +396,7 @@ idx_car_model_search
     - Secured using Security Groups and subnet isolation
 
 ## Diagram
-![general diagram](image-27.png)
+![general diagram](https://github.com/DangThao195/w3/blob/54104c6ff65b92fe108a82988595cf558d7966e6/image-27.png)
 
 ---
 
