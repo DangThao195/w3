@@ -261,6 +261,43 @@
 ### Screenshot
 ![cloudwatch](https://github.com/DangThao195/w3/blob/e65594f0d52d46e637fead25e35b09733f4c84c0/image-33.png)
 
+## 3.6 CloudTrail for Audit Logging
+
+### Why Use CloudTrail?
+
+- Track who did what in AWS environment  
+- Improve security monitoring and compliance  
+- Detect unauthorized changes  
+- Keep audit history for investigation  
+
+### Management Events
+
+- **Status:** Enabled  
+- **Scope:** All deployed services (EC2, DocumentDB, VPC, IAM, S3)
+
+Tracked actions:
+- **Read:** `DescribeInstances`, view configurations  
+- **Write:** `RunInstances`, `TerminateInstances`, `ModifyDBInstance`
+
+Purpose:
+- Monitor infrastructure activities of Group 2
+
+### S3 Data Events
+
+- **Bucket:** `group-2-s3-upload`
+
+Tracked actions:
+- **Write:** `PutObject`, `DeleteObject`
+- **Read:** `GetObject`
+
+Purpose:
+- Monitor upload, deletion, and access of user media files
+
+### Screenshot
+![cloudtrail](image-34.png)
+![management event](image-35.png)
+![s3 data events](image-36.png)
+
 ---
 
 # 4. Working Query Evidence
