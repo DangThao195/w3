@@ -294,9 +294,9 @@ Purpose:
 - Monitor upload, deletion, and access of user media files
 
 ### Screenshot
-![cloudtrail](image-34.png)
-![management event](image-35.png)
-![s3 data events](image-36.png)
+![cloudtrail](https://github.com/DangThao195/w3/blob/14498f429edcaad24df955564c566f479ac527d2/image-34.png)
+![management event](https://github.com/DangThao195/w3/blob/14498f429edcaad24df955564c566f479ac527d2/image-35.png)
+![s3 data events](https://github.com/DangThao195/w3/blob/14498f429edcaad24df955564c566f479ac527d2/image-36.png)
 
 ---
 
