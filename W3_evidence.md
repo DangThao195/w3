@@ -247,6 +247,11 @@
 ![edit budget](https://github.com/DangThao195/w3/blob/ad2872bf1d96531540d83dc7b8c8ad2875e1b668/image-31.png)
 ![test](https://github.com/DangThao195/w3/blob/ad2872bf1d96531540d83dc7b8c8ad2875e1b668/image-32.png)
 
+## 3.5 CloudWatch for Log Management
+
+![cloudwatch](image-33.png)
+
+
 ---
 
 # 4. Working Query Evidence
