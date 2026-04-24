@@ -249,8 +249,17 @@
 
 ## 3.5 CloudWatch for Log Management
 
-![cloudwatch](image-33.png)
+### Why Use CloudWatch for Log Management?
 
+- Centralize logs in one place  
+- Monitor systems in real time  
+- Detect errors quickly  
+- Support troubleshooting  
+- Create alerts and alarms  
+- Improve security visibility  
+
+### Screenshot
+![cloudwatch](https://github.com/DangThao195/w3/blob/e65594f0d52d46e637fead25e35b09733f4c84c0/image-33.png)
 
 ---
 
