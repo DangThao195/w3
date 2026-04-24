@@ -59,6 +59,15 @@
     - Designed Multi-AZ architecture → improved system availability and fault tolerance
     - Verified security by testing direct S3 access → confirmed Access Denied response
 
+## Screenshot
+![Block public access](image-20.png)
+![Encryption](image-21.png)
+![HTTPS only](image-22.png)
+![Life cycle](image-23.png)
+![IAM s3](image-24.png)
+![OAC](image-25.png)
+![Versioning](image-26.png)
+
 ---
 
 # 2. Data Access Pattern Log
@@ -386,6 +395,9 @@ idx_car_model_search
     - Only accessible from App Tier via internal VPC networking
     - Secured using Security Groups and subnet isolation
 
+## Diagram
+![general diagram](image-27.png)
+
 ---
 
 ## 7.2 S3 Gateway Endpoint
@@ -436,5 +448,5 @@ idx_car_model_search
 - Actual Result: The connection attempt failed with a timeout error (TIMEOUT), indicating that access to the cluster endpoint is not allowed from the current source.
 
 ### Screenshot
-![alt text](image-19.png)
+![test negative access](https://github.com/DangThao195/w3/blob/a2ae159b9d6d19b242e091ad83a18df4a79ae2ab/image-19.png)
 ---
