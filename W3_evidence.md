@@ -241,11 +241,11 @@
 - Improve governance and budget control
 
 ### Screenshot
-![alt text](image-28.png)
-![alt text](image-29.png)
-![alt text](image-30.png)
-![alt text](image-31.png)
-![alt text](image-32.png)
+![IAM policy](https://github.com/DangThao195/w3/blob/ad2872bf1d96531540d83dc7b8c8ad2875e1b668/image-28.png)
+![sns](https://github.com/DangThao195/w3/blob/ad2872bf1d96531540d83dc7b8c8ad2875e1b668/image-29.png)
+![lambda](https://github.com/DangThao195/w3/blob/ad2872bf1d96531540d83dc7b8c8ad2875e1b668/image-30.png)
+![edit budget](https://github.com/DangThao195/w3/blob/ad2872bf1d96531540d83dc7b8c8ad2875e1b668/image-31.png)
+![test](https://github.com/DangThao195/w3/blob/ad2872bf1d96531540d83dc7b8c8ad2875e1b668/image-32.png)
 
 ---
 
