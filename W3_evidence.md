@@ -417,9 +417,9 @@ idx_car_model_search
 ## 7.3 Security Group Reference
 
 - SG Source:
-      - ALB Security Group (group2-alb-sg): Cho phép Inbound Traffic từ Internet (0.0.0.0/0) thông qua port 80 (HTTP) và 443 (HTTPS).
-      - EC2 Backend Security Group (group2-secu-new): Chỉ cho phép Inbound Traffic tại port 5000 với Source là group2-alb-sg. Mở port 22 (SSH) hạn chế cho IP quản trị hoặc Bastion Host.
-      - DocumentDB Security Group (group2-security-VPC): Chỉ cho phép Inbound Traffic tại port 27017 với Source là group2-backend-sg.
+      - ALB Security Group (group2-alb-sg)
+      - EC2 Backend Security Group (group2-secu-new)
+      - DocumentDB Security Group (group2-security-VPC)
 
 ### Screenshot
 ![ec2 backend](https://github.com/DangThao195/w3/blob/d2a2bec50eb39a9cb081261239fc0134e7da37e5/image-7.png)
