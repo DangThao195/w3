@@ -196,7 +196,7 @@
 
 ### Screenshot
 ![read db](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/image-11.png)
-![write db](https://github.com/DangThao195/w3/blob/5ab92674eb992e62f33a66b48259b7cf59a4c720/Screenshot%20From%202026-04-23%2023-18-08.pngv)
+![write db](https://github.com/DangThao195/w3/blob/fc47cfbc9ca2111f95c766abf206b45bfda943f5/Screenshot%20From%202026-04-23%2023-18-08.png)
 
 
 ## 3.4 Cost Control Automation with AWS Budgets
